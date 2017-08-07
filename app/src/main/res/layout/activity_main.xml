@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.test2w3.MainActivity"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/btn_getRandomUser"
+        android:onClick="getRandomUser"
+        android:text="@string/lbl_btn_get_random_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:hint="@string/lbl_btn_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_address"
+        android:hint="@string/lbl_btn_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_email"
+        android:hint="@string/lbl_btn_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_userPicture"
+        android:layout_gravity="center"
+        android:layout_width="146dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.17" />
+    <Button
+        android:id="@+id/btn_save"
+        android:onClick="saveUser"
+        android:text="@string/lbl_btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_seacrRecord"
+        android:hint="Insert the ID to search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_search"
+        android:text="@string/lbl_btn_search"
+        android:onClick="getProfileDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_users_Added"
+        android:hint="@string/user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

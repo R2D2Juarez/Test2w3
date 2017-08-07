@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Test2w3</string>
+    <string name="lbl_btn_get_random_user">GET RANDOM USER</string>
+    <string name="lbl_btn_name">Name</string>
+    <string name="lbl_btn_address">Address</string>
+    <string name="lbl_btn_email">Email</string>
+    <string name="lbl_btn_save">SAVE</string>
+    <string name="lbl_btn_search">SEARCH</string>
+    <string name="user_profile">User profile:</string>
+</resources>
