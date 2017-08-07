@@ -49,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
     private static final String BASE_URL = "https://randomuser.me/api";
-    private static String NAME = "";
     private static String ADDRESS = "";
-    private static String EMAIL = "";
     private static String URL_PICTURE = "";
     public static String SEARCH_RECORD;
     private static Bitmap IMAGE_BITMAP;
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         saveProfileBTN = (Button) findViewById(R.id.btn_save);
 
         client = new OkHttpClient.Builder().build();
-        getRandomJSON();
+        //getRandomJSON();
     }
 
 //________________GET THE RANDOM JSON AND SET VARIABLES_____________________________________________
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject nameJSONObject = results.getJSONObject(0).getJSONObject("name");
                         JSONObject locationJSONObject = results.getJSONObject(0).getJSONObject("location");
                         JSONObject pictureJSONObject = results.getJSONObject(0).getJSONObject("picture");
-                        String emailJSONString = results.getJSONObject(0).getString("email");
+                        final String emailJSONString = results.getJSONObject(0).getString("email");
 
                         Gson gson = new Gson();
 
@@ -133,12 +131,21 @@ public class MainActivity extends AppCompatActivity {
 
                         //GET THE ATTACHED OBJECT ATTRIBUTES INTO THE CONSTANTS
                         URL_PICTURE = pictureObject.getMedium();
-                        EMAIL = emailJSONString;
-                        NAME = nameObject.getFirst() + " " + nameObject.getLast();
                         ADDRESS = locationObject.getStreet() + ", " +
                                   locationObject.getCity() + ", " +
                                   locationObject.getState() + ", " +
                                   locationObject.getPostcode();
+
+                        //RUN THIS TRHAED IN ORDER TO EDIT COMPONENT IN THE VIEW
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                nameTV.setText(nameObject.getFirst() + " " + nameObject.getLast());
+                                addressTV.setText(ADDRESS);
+                                emailTV.setText(emailJSONString);
+                                new DownloadImageTask(userPictureIV).execute(pictureObject.getMedium());
+                            }
+                        });
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -153,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
     public void getImageFromURL(){
         new DownloadImageTask(userPictureIV).execute(URL_PICTURE);
     }
-
 //__________________________________________________________________________________________________
 
     public void saveImageToExternalStorage(Bitmap imageBitmap) {
@@ -238,17 +244,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Record NOT SAVED", Toast.LENGTH_SHORT).show();
         }
     }
-//__________________________________________________________________________________________________
+//___________________________________________________________________________________________
 
 
     public void getRandomUser(View view){
 
         getRandomJSON();
-        nameTV.setText(NAME);
-        addressTV.setText(ADDRESS);
-        emailTV.setText(EMAIL);
-        getImageFromURL();
-
     }
 //__________________________________________________________________________________________________
 
@@ -268,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SEARCH_RECORD, value);
         startActivity(intent);
     }
-
 
 
 //__________________________________________________________________________________________________
